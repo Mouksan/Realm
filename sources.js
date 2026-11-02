@@ -158,7 +158,7 @@ function cardFields() {
     try {
         return ctx().getCharacterCardFields?.() || {};
     } catch (error) {
-        console.warn('[Realmweaver] не удалось прочитать карточку персонажа', error);
+        console.warn('[Realm] не удалось прочитать карточку персонажа', error);
         return {};
     }
 }
@@ -204,7 +204,7 @@ async function loadLoreEntries(name) {
                 return title ? `### ${title}\n${content}` : content;
             });
     } catch (error) {
-        console.warn(`[Realmweaver] не удалось прочитать лорбук "${name}"`, error);
+        console.warn(`[Realm] не удалось прочитать лорбук "${name}"`, error);
         return [];
     }
 }

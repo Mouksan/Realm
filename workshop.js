@@ -189,7 +189,7 @@ function dialogHtml() {
                 <div class="rlw-hint rlw-group-hint">В групповых чатах работает только «Только в этом чате».</div>
                 <label class="checkbox_label rlw-chat-off">
                     <input type="checkbox" class="rlw-chat-off-input">
-                    <span>Выключить Realmweaver в этом чате</span>
+                    <span>Выключить Realm в этом чате</span>
                 </label>
             </div>
 
@@ -291,7 +291,7 @@ function notifyGeneration() {
         try {
             listener();
         } catch (error) {
-            console.warn('[Realmweaver] ошибка при обновлении окна', error);
+            console.warn('[Realm] ошибка при обновлении окна', error);
         }
     }
 }
@@ -300,11 +300,11 @@ function notifyGeneration() {
 function canGenerate(pkg) {
     if (!pkg) return false;
     if (!getSettings().profileId) {
-        toastr.warning('Не выбран профиль подключения — загляни в настройки Realmweaver.', 'Realmweaver');
+        toastr.warning('Не выбран профиль подключения — загляни в настройки Realm.', 'Realm');
         return false;
     }
     if (!hasEnabledModules(pkg)) {
-        toastr.warning('Включи хотя бы один модуль во вкладке «Параметры».', 'Realmweaver');
+        toastr.warning('Включи хотя бы один модуль во вкладке «Параметры».', 'Realm');
         return false;
     }
     return true;
@@ -314,7 +314,7 @@ function canGenerate(pkg) {
 function canReview(pkg) {
     if (!pkg) return false;
     if (!getSettings().reviewProfileId && !getSettings().profileId) {
-        toastr.warning('Не выбран профиль подключения — загляни в настройки Realmweaver.', 'Realmweaver');
+        toastr.warning('Не выбран профиль подключения — загляни в настройки Realm.', 'Realm');
         return false;
     }
     return Boolean(String(pkg.full || '').trim());
@@ -338,7 +338,7 @@ async function generatePackage(pkgId) {
 
         const { text } = await collectSources(pkg);
         if (!text.trim()) {
-            toastr.warning('Источники пустые — отметь карточку, персону или лорбуки во вкладке «Источники».', 'Realmweaver');
+            toastr.warning('Источники пустые — отметь карточку, персону или лорбуки во вкладке «Источники».', 'Realm');
             return;
         }
 
@@ -358,8 +358,8 @@ async function generatePackage(pkgId) {
             try {
                 ({ full, cheat } = await reviewPackage(pkg, full, cheat));
             } catch (error) {
-                console.warn('[Realmweaver] самопроверка не удалась', error);
-                toastr.warning('Самопроверка не удалась — сохранён пакет без неё.', 'Realmweaver');
+                console.warn('[Realm] самопроверка не удалась', error);
+                toastr.warning('Самопроверка не удалась — сохранён пакет без неё.', 'Realm');
             }
         }
 
@@ -367,14 +367,14 @@ async function generatePackage(pkgId) {
         updatePackageTexts(pkgId, { full, cheat }, { keepPrevious: true });
         applyInjection();
 
-        if (!cheat) toastr.warning('Шпаргалку модель не выдала — допиши руками или перегенерируй.', 'Realmweaver');
-        toastr.success(`Пакет «${getPackage(pkgId).name}» готов.`, 'Realmweaver');
+        if (!cheat) toastr.warning('Шпаргалку модель не выдала — допиши руками или перегенерируй.', 'Realm');
+        toastr.success(`Пакет «${getPackage(pkgId).name}» готов.`, 'Realm');
     } catch (error) {
         if (error instanceof EmptyResponseError) {
-            toastr.error('Модель вернула что-то странное — пакет не сохранён. Попробуй ещё раз.', 'Realmweaver');
+            toastr.error('Модель вернула что-то странное — пакет не сохранён. Попробуй ещё раз.', 'Realm');
         } else {
-            console.error('[Realmweaver] генерация не удалась', error);
-            toastr.error(`Генерация не удалась: ${errorText(error)}`, 'Realmweaver');
+            console.error('[Realm] генерация не удалась', error);
+            toastr.error(`Генерация не удалась: ${errorText(error)}`, 'Realm');
         }
     } finally {
         setBusy(pkgId, null);
@@ -392,13 +392,13 @@ async function checkPackage(pkgId) {
         if (!getPackage(pkgId)) return;
         updatePackageTexts(pkgId, { full, cheat }, { keepPrevious: true });
         applyInjection();
-        toastr.success(`Пакет «${getPackage(pkgId).name}» проверен.`, 'Realmweaver');
+        toastr.success(`Пакет «${getPackage(pkgId).name}» проверен.`, 'Realm');
     } catch (error) {
         if (error instanceof EmptyResponseError) {
-            toastr.error('Модель вернула что-то странное — пакет не изменён. Попробуй ещё раз.', 'Realmweaver');
+            toastr.error('Модель вернула что-то странное — пакет не изменён. Попробуй ещё раз.', 'Realm');
         } else {
-            console.error('[Realmweaver] проверка не удалась', error);
-            toastr.error(`Проверка не удалась: ${errorText(error)}`, 'Realmweaver');
+            console.error('[Realm] проверка не удалась', error);
+            toastr.error(`Проверка не удалась: ${errorText(error)}`, 'Realm');
         }
     } finally {
         setBusy(pkgId, null);
@@ -411,7 +411,7 @@ async function checkPackage(pkgId) {
 
 export async function openWorkshop() {
     if (!hasChat()) {
-        toastr.info('Открой чат — мастерской нужен чат, к которому привязывать мир.', 'Realmweaver');
+        toastr.info('Открой чат — мастерской нужен чат, к которому привязывать мир.', 'Realm');
         return;
     }
 
@@ -467,10 +467,10 @@ export async function openWorkshop() {
                 text = `Сейчас действует: «${pkg.name}» — только в этом чате`;
                 break;
             case 'off-chat':
-                text = 'Realmweaver выключен в этом чате';
+                text = 'Realm выключен в этом чате';
                 break;
             case 'off-global':
-                text = 'Realmweaver выключен в настройках расширения';
+                text = 'Realm выключен в настройках расширения';
                 break;
             default:
                 text = 'Пакета нет — в промт ничего не идёт';
@@ -726,7 +726,7 @@ export async function openWorkshop() {
         const keep = await confirmPopup('В пакете есть несохранённые правки. Сохранить?', 'Сохранить', 'Выбросить');
         if (keep) {
             saveTexts();
-            toastr.success('Правки сохранены.', 'Realmweaver');
+            toastr.success('Правки сохранены.', 'Realm');
         }
     };
 
@@ -871,7 +871,7 @@ export async function openWorkshop() {
         applyInjection();
         renderTexts();
         renderStatus();
-        toastr.info('Вернул прошлую версию. Нажми ещё раз, чтобы вернуть обратно.', 'Realmweaver');
+        toastr.info('Вернул прошлую версию. Нажми ещё раз, чтобы вернуть обратно.', 'Realm');
     });
 
     $root.on('input', '.rlw-text', function () {
@@ -881,7 +881,7 @@ export async function openWorkshop() {
 
     $root.on('click', '.rlw-save', () => {
         saveTexts();
-        toastr.success('Правки сохранены.', 'Realmweaver');
+        toastr.success('Правки сохранены.', 'Realm');
     });
 
     $root.on('click', '.rlw-revert', () => {

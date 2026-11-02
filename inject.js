@@ -51,7 +51,7 @@ export function clampDepth(value) {
 export function applyInjection() {
     const c = ctx();
     if (typeof c.setExtensionPrompt !== 'function') {
-        console.warn('[Realmweaver] setExtensionPrompt недоступен в этой версии таверны');
+        console.warn('[Realm] setExtensionPrompt недоступен в этой версии таверны');
         return;
     }
 

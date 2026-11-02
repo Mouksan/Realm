@@ -1,4 +1,5 @@
-// Realmweaver — точка входа.
+// Realm (бывший Realmweaver) — точка входа.
+// Внутренние имена (ключи realmweaver*, класс .realmweaver-settings, префикс rlw-) не меняются — пакеты и настройки на месте.
 //
 // Генератор «фактуры мира» для фэнтези-ролевок против русизмов: из карточки,
 // персоны и лорбуков модель собирает пакет (быт, меры, обращения, клятвы,
@@ -20,7 +21,7 @@ import { applyInjection, clampDepth } from './inject.js';
 import { openWorkshop } from './workshop.js';
 import { DEFAULT_INSTRUCTIONS } from './prompt.js';
 
-const EXTENSION_NAME = 'Realmweaver';
+const EXTENSION_NAME = 'Realm';
 
 function escapeHtml(str) {
     return String(str ?? '')
@@ -73,14 +74,14 @@ function settingsHtml() {
         <div class="realmweaver-settings">
             <div class="inline-drawer">
                 <div class="inline-drawer-toggle inline-drawer-header">
-                    <b><i class="fa-solid fa-mountain-sun"></i> Realmweaver</b>
+                    <b><i class="fa-solid fa-mountain-sun"></i> 「 REALM 」</b>
                     <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
                 </div>
                 <div class="inline-drawer-content">
                     <div class="rlw-settings-body">
                         <label class="checkbox_label" for="rlw_enabled">
                             <input type="checkbox" id="rlw_enabled">
-                            <span>Включить Realmweaver</span>
+                            <span>Включить Realm</span>
                         </label>
 
                         <div class="rlw-set-field">
@@ -229,7 +230,7 @@ function mountWandMenu() {
     $('#extensionsMenu').append(`
         <div id="rlw_wand_item" class="list-group-item flex-container flexGap5" title="Открыть мастерскую миров">
             <div class="fa-solid fa-mountain-sun extensionsMenuExtensionButton"></div>
-            <span>Realmweaver</span>
+            <span>Realm</span>
         </div>
     `);
     $('#rlw_wand_item').on('click', openWorkshop);
